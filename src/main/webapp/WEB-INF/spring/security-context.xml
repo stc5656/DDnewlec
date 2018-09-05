@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 로그인 페이지로 간다. -->
+	<!-- 라이브러리 불러오는거 -->
+	<http auto-config="true">
+		<intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>	
+	</http>	
+	
+	
+	<authentication-manager>
+		<authentication-provider>
+			<!-- 패스워드 암호화 시키는 거 -->
+			<password-encoder hash="bcrypt"/>
+			<user-service>
+				<user name="newlec" password="$2a$10$zpE1ThBwaRlZM2uMMShksurhrRjw/QtUZXB4cfON4.owLTFqkyQx." authorities="ROLE_STUDENT,ROLE_TEACHER"/>
+				<user name="dragon" password="$2a$10$zpE1ThBwaRlZM2uMMShksurhrRjw/QtUZXB4cfON4.owLTFqkyQx." authorities="ROLE_STUDENT"/>
+			</user-service>		
+		</authentication-provider>
+	</authentication-manager>
+</beans:beans>
