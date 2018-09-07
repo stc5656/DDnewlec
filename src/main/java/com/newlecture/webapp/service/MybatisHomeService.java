@@ -11,7 +11,7 @@ import com.newlecture.webapp.entity.MemberRole;
 @Service
 public class MybatisHomeService {
 	
-	// ioc¿¡ ´ãÀº ÈÄ¿¡ °¡Á®´Ù°¡ ¾²´Â°Å
+	// iocï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½Â°ï¿½
 	@Autowired
 	private MemberRoleDao memberRoleDao;	
 	

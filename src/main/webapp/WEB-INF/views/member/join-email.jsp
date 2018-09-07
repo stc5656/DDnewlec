@@ -3,7 +3,7 @@
 <main>
 	<h1>회원가입 폼</h1>
 	<h2>가입을 위한 이메일 주소를 입력하세요.</h2>
-	<form>
+	<form method="post">
 		<div>
 			<label>이메일</label>
 			<input name="email"/>

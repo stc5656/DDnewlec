@@ -4,12 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newlecture.webapp.dao.MemberRoleDao">
 
-	<insert id = "intsert" parameterType="com.newlecture.webapp.entity.MemberRoleDao">
+	<insert id = "intsert" parameterType="com.newlecture.webapp.entity.MemberRole">
 		insert into MemberRole(memberId, roleName)
 		values(#{memberId}, #{roleName})
 	</insert>
 
-	<update id ="update" parameterType="com.newlecture.webapp.entity.MemberRoleDao">
+	<update id ="update" parameterType="com.newlecture.webapp.entity.MemberRole">
 		UPDATE MemberRole
 		SET 
 			[memberId] = #{memberId}
@@ -24,13 +24,13 @@
 	</delete>
 	
 	
-	<select id = "get" resultType="com.newlecture.webapp.entity.MemberRoleDao">
+	<select id = "get" resultType="com.newlecture.webapp.entity.MemberRole">
 		select*from MemberRole where id = #{param1}
 	
 	</select>
 	
 	
-	<select id="getList" resultType="com.newlecture.webapp.entity.MemberRoleDao" parameterType="String">
+	<select id="getList" resultType="com.newlecture.webapp.entity.MemberRole" parameterType="String">
 		<!-- 경우(인자)에 따라서 쿼리를 다르게 작성해야 한다.
 		동적 쿼리를 만들 수 있어야 한다. -->
 		

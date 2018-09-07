@@ -7,7 +7,7 @@ import org.apache.catalina.UserDatabase;
 
 import com.newlecture.webapp.dao.RoleDao;
 
-public class MybatisRoleDao implements Role, RoleDao {
+public class MybatisRoleDao implements RoleDao {
 
 	public String getName() {
 		// TODO Auto-generated method stub

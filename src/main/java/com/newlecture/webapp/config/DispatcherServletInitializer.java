@@ -1,27 +1,27 @@
-package com.newlecture.web.config;
+package com.newlecture.webapp.config;
 
 import javax.servlet.Filter;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-// ¾Æ·¡ ¼¼°¡ÁöÀÇ ÁýÇÕÃ¼
-// web.xml¿¡¼­ µð½ºÆÐÃ³¼­ºí¸´À» »ý¼ºÇÑ ºÎºÐÀÌ´Ù. ¶ó°í »ý°¢
-// ±×·¡¼­ ¿©±â¼­ ÇØ¾ßÇÒ ±âº»ÀûÀÎ ¼³Á¤Àº
+// ï¿½Æ·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼
+// web.xmlï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½Ì´ï¿½. ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+// ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¼­ ï¿½Ø¾ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-// 1. URL ¸ÅÇÎ ¼³Á¤ÇÏ±â
+// 1. URL ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 /*<servlet-mapping>
 	<servlet-name>dispatcher</servlet-name>
 	<url-pattern>/</url-pattern>
 </servlet-mapping>*/
 
-// 2. ´ÙÀ½°ú °°Àº ¼³Á¤µé ÀÌ¿ëÇÏ±â
-// ¼­ºí¸´, ¼­ºñ½º, º¸¾È - contextconfigloglocation
+// 2. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï±ï¿½
+// ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ - contextconfigloglocation
 
-// 3. ÇÊÅÍ ¼³Á¤ ¿¹) ÀÎÄÚµù / º¸¾È µîµî..
+// 3. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½) ï¿½ï¿½ï¿½Úµï¿½ / ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½..
 
-// 4. À£ÄÄ ÆÄÀÏ ¸®½ºÆ®
+// 4. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 
-// 5. ±âÅ¸ µîµî
+// 5. ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½
 
 
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
@@ -39,8 +39,8 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
   		<param-name>contextConfigLocation</param-name>
   		<param-value>/WEB-INF/spring/servlet-context.xml</param-value>
   		</init-param>*/
-		// À§ÀÇ ¼³Á¤À» ´ë½ÅÇÏ±â À§ÇÑ ÀÚ¹Ù Å¬·¡½º¸¦ ´ÙÀ½À¸·Î ÇÑ´Ù.
-		// ServletContextConfig{} ¿¡¼­ ¼³Á¤ÇÏ¿ä ¿ÀÅ°µµÅ°??
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¹ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+		// ServletContextConfig{} ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½Å°ï¿½ï¿½Å°??
 		
 		
 		return new Class[] {

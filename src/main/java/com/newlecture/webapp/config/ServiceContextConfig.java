@@ -1,4 +1,4 @@
-package com.newlecture.web.config;
+package com.newlecture.webapp.config;
 
 import java.util.Properties;
 
@@ -13,71 +13,64 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-// �̰� ���Ǳ״�!! ��� �˷��ִ°�
-
 @Configuration
 @ComponentScan(basePackages= {"com.newlecture.webapp.dao.mybatis", "com.newlecture.webapp.service"})
-public class ServiceContextConfig {
+public class ServiceContextConfig{
 	
-	// 보따리에 담는거..
 	@Bean
 	public BasicDataSource dataSource() {
-		
 		BasicDataSource dataSource = new BasicDataSource();
 		
-		
-		//MS SQL SERVER ������ ����
+		/* DB 설정 */
 		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		dataSource.setUrl("jdbc:sqlserver://211.238.142.251:1433;databaseName=lecture");
 		dataSource.setUsername("sist");
 		dataSource.setPassword("dclass");
 		
-		
-		// MY SQL OR MARIADB
-		//dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		//dataSource.setUrl("jdbc:mysql://mb.coworkline.com/newlecturedb?autoReconnect=true&useSSL=false&useUnicode=true&amp;characterEncoding=utf8\"/");
-		//dataSource.setUsername("mb");
-		//dataSource.setPassword("111");	
-		
-		
-		
-		/* PULL ����*/
+		/* PULL 관리*/
 		dataSource.setRemoveAbandoned(true);
 		dataSource.setInitialSize(20);
 		dataSource.setMaxActive(30);
 		
+		//dataSource.setRemove
+		
+		
+		
 		return dataSource;
 	}
-	
+	//sqlSessionFactory(BasicDataSource dataSource) IOC 보따리에서 찾앗!
 	@Bean
-	public SqlSessionFactory sqlSessionFactory(BasicDataSource dataSource) throws Exception{
+	public SqlSessionFactory sqlSessionFactory(BasicDataSource dataSource) throws Exception {
+		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
+		sqlSessionFactory.setDataSource(dataSource);
+		sqlSessionFactory.setMapperLocations(
+				new PathMatchingResourcePatternResolver()
+					.getResources("classpath:com/newlecture/webapp/dao/mybatis/mapper/*.xml"));
 		
-		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-		
-		factoryBean.setDataSource(dataSource);
-		factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
-				.getResources("classpath:com/newlecture/webapp/dao/mybatis/mapper/*.xml"));
-		
-		return factoryBean.getObject();	
-		
+		return sqlSessionFactory.getObject();
 	}
 	
 	@Bean
-	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+	public SqlSessionTemplate sqlSession(SqlSessionFactory sqlSessionFactory) {
+		//sqlSessionFactoryBean은 맞지만 팩토리 객체를 반환하기 때문에.
+		//SqlSessionFactoryBean->SqlSessionFactory로 변경하고 SqlSessionFactory return은 .getObject를 해야함
 		return new SqlSessionTemplate(sqlSessionFactory);
-				
 	}
+	
 	
 	@Bean
 	public JavaMailSender mailSender(){
 	
+	// 메일 서버 사용자 정보
 	JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 	mailSender.setDefaultEncoding("UTF-8");
-	mailSender.setHost("smtp.aaa.com");
-	mailSender.setPort(333);
-	mailSender.setUsername("aa@aaa.com");
-	mailSender.setPassword("111");
+	mailSender.setHost("smtp.gmail.com");
+	mailSender.setPort(587);
+	mailSender.setUsername("seonghyeon226@gmail.com");
+	mailSender.setPassword("qhfka2486");
 	
+	
+	// 메일 서버 환경 설정 정보
 	Properties javaMailProperties = new Properties();
 	javaMailProperties.put("mail.transport", "smtp");
 	javaMailProperties.put("mail.smtp.auth", true);
