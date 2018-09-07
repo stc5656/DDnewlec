@@ -11,7 +11,7 @@ import com.newlecture.webapp.entity.Subject;
 import com.newlecture.webapp.service.TeacherService;
 
 
-@Controller("teacherHomecontroller")  // Å¬·¡½º¸í
+@Controller("teacherHomecontroller")  // Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 @RequestMapping("/teacher/")
 public class HomeController {
 	
@@ -24,9 +24,9 @@ public class HomeController {
 		List<Subject> subjects = TeacherService.getSubjectList();
 		model.addAttribute("Subject", subjects);
 		
-		subjects.toString();
+		/*subjects.toString();*/
 		
-		return "teacher.index";	// ¾ê°¡ Å¸ÀÏÁî¶ó¼­ È®ÀÎÇØ¾ßµÅ	
+		return "teacher.index";	// ï¿½ê°¡ Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ø¾ßµï¿½	
 	}
 }
 

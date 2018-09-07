@@ -6,7 +6,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.newlecture.webapp.dao.MemberDao;
 import com.newlecture.webapp.dao.MemberRoleDao;
 import com.newlecture.webapp.entity.MemberRole;
 

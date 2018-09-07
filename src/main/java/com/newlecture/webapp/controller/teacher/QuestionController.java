@@ -1,11 +1,14 @@
 package com.newlecture.webapp.controller.teacher;
 
+
+import java.security.Principal;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 
 import com.newlecture.webapp.entity.Question;
 	
@@ -15,29 +18,30 @@ public class QuestionController{
 	
 	
 	/*
-	 1. Dispatcher¸¦ ´ã´çÇÏ´Â Front Controller¸¦ SpringÀ¸·ÎºÎÅÍ Á¦°ø¹Þ¾Æ¼­ »ç¿ëÇÏ°í ÀÖÀ½.
-	 	MVC model2 ¹æ½ÄÀ¸·Î /teacher/question/type URLÀ» ±¸ÇöÇØº¸¾Ò´Ù.
+	 1. Dispatcherï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Front Controllerï¿½ï¿½ Springï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	 	MVC model2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ /teacher/question/type URLï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½Ò´ï¿½.
 	 
-	 2. view ¸¦ ±¸ÇöÇØ¼­ type.jsp ¸¦ ¿äÃ»ÇØ º¸¾Ò´Ù.
+	 2. view ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ type.jsp ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½Ò´ï¿½.
 	 
-	 3. RequestMapping°ú return ºä ¹®ÀÚ¿­À» ÁÙÀÌ´Â ¹æ¹ýÀ» ¾Ë¾Æº¸¾Ò´Ù.
-	 	return ºä ¹®ÀÚ¿­À» ÁÙÀÌ±â À§ÇØ¼­ ViewResolver¸¦ ¼³Á¤ÇÏ¿´´Ù.
+	 3. RequestMappingï¿½ï¿½ return ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æºï¿½ï¿½Ò´ï¿½.
+	 	return ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ViewResolverï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½.
 	 
-	 4. modelÀ» »ç¿ëÇÏ´Â ¹æ¹ýÀ» ÀÌÇØÇÏ±â 
+	 4. modelï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ 
 	 
 	*/
 	@RequestMapping("type")
-	public String type(Model model) {
-				
+	public String type(Model model, Principal principal) {
+		
+		System.out.printf("test","hello");
 		model.addAttribute("test","Hello");
 		
-		return "teacher.question.type"; /*ÆäÀÌÁö¸íÀ» ½áÁØ´Ù*/
+		return "teacher.question.type"; /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½*/
 	}
 	
 	
-	// GET ¿äÃ»
-	// @RequestMapping(value="reg", method=RequestMethod.GET) - ÀÌ°ÍµéÀº 4.0 Áß¹Ý±îÁö¸¸ ½è°í..
-	// Áö±ÝÀº ¾Æ·¡ ¹æ¹ýÀ¸·Î ÇÔ..
+	// GET ï¿½ï¿½Ã»
+	// @RequestMapping(value="reg", method=RequestMethod.GET) - ï¿½Ì°Íµï¿½ï¿½ï¿½ 4.0 ï¿½ß¹Ý±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½..
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½..
 	
 	@GetMapping("choice-reg")
 	public String choiceReg() {
@@ -45,7 +49,7 @@ public class QuestionController{
 		return "teacher.question.choice-reg"; 
 	}
 	
-	// POST ¿äÃ» - 4.0 Áß¹Ý±îÁö¸¸ ½è°í..	
+	// POST ï¿½ï¿½Ã» - 4.0 ï¿½ß¹Ý±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½..	
 	// @RequestMapping(value="reg", method=RequestMethod.POST)
 	
 	
@@ -58,7 +62,7 @@ public class QuestionController{
 	@RequestMapping("admin")
 	public String admin() {
 						
-		return "teacher.question.admin"; /*ÆäÀÌÁö¸íÀ» ½áÁØ´Ù*/
+		return "teacher.question.admin"; /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½*/
 	}
 	
 	
