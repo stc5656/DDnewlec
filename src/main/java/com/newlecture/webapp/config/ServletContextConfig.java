@@ -1,8 +1,13 @@
 package com.newlecture.webapp.config;
 
+import java.nio.charset.Charset;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -68,4 +73,17 @@ public class ServletContextConfig implements WebMvcConfigurer {
 		
 	}
 	
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		// TODO Auto-generated method stub
+		
+		// 내가 원하는 형식으로 문자 보여주게 하는거..
+		StringHttpMessageConverter converter = new StringHttpMessageConverter(Charset.forName("UTF-8"));
+		converter.setWriteAcceptCharset(false);
+		
+		converters.add(converter);
+		
+		WebMvcConfigurer.super.configureMessageConverters(converters);
+	
+	}
 }

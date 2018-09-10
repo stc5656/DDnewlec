@@ -21,16 +21,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.newlecture.webapp.dao.MemberDao;
 import com.newlecture.webapp.entity.Member;
+import com.newlecture.webapp.service.MybatisHomeService;
+import com.sun.org.apache.regexp.internal.recompile;
 
 @Controller
 @RequestMapping("/member/")
 public class MemberController {
-
+	
+	
+	// 서비스를 왜 만드냐?? 책임자다.
+	// 원래는 시스템을 기반으로 하지만 디렉토리 기반으로 했다.
 	@Autowired
-	private MemberDao memberDao;
+	private MybatisHomeService service;
+	
+	/*@Autowired
+	private MemberDao memberDao;*/
 
 	@Autowired
 	private JavaMailSender mailSender;
@@ -38,9 +47,6 @@ public class MemberController {
 	@GetMapping("join")
 	public String join(Model model) {
 
-		Member member = memberDao.get("jojo");
-
-		model.addAttribute("member", member);
 		// �� ������
 		return "member.join";
 	}
@@ -56,9 +62,43 @@ public class MemberController {
 	 * @param email
 	 * @return
 	 */
+	
+	@GetMapping("email-duplicated-error")
+	@ResponseBody
+	public String emailDuplicatedError(HttpServletResponse response) {
+		// location.href='join-email' 이메일 요청하는거
+		// 한글 깨지는 현상 해결 방법 : HttpServletResponse response 써줘야 안깨짐
+		
+		return "<script>alert('이미 가입된 이메일 입니다.'); location.href='join-email';</script>";
+	}
+	
+	// 컨트롤러
+	@GetMapping("is-id-duplicated")
+	public String isIdDuplicated(String id) {	
+		
+		boolean duplicated = service.isIdDuplicated(id);
+		
+		if(duplicated)
+			return "true";
+		
+		return "false";		
+	}
+	
+	
 	@PostMapping("join-email")
 	public String joinEmail(String email, HttpServletResponse response) {
-
+		
+				
+		boolean duplicated = service.ischeckEmailDuplicated(email);
+		
+		// 동사형으로 이름 지어..
+		// 이미 가입된 내역이 있다는 문구 출력
+		
+		if(duplicated)
+			return "redirect:email-duplicated-error";
+		
+		
+		
 		// 인증메일 보내는거..	(sadfsdfsafdsa243141dsfg 이런거)	
 		UUID uuid = UUID.randomUUID();
 		MessageDigest salt = null;
@@ -131,8 +171,9 @@ public class MemberController {
 		if(key.equals("") || joinId.equals("") || !key.equals(joinId))
 			return "member.join-error";
 		
-		String uid = email.substring(email.lastIndexOf("@")+1);  // newlec@namoolab.com 에서 앞에 newlec만 발췌하는 코드
-				
+		/*String uid = email.substring(email.lastIndexOf("@")+1); */ // newlec@namoolab.com 에서 앞에 newlec만 발췌하는 코드
+		String uid = email.split("@")[0];
+		
 		model.addAttribute("uid", uid);
 		model.addAttribute("email", email);
 				

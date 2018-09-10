@@ -22,14 +22,12 @@
 	<delete id = "delete" parameterType="String">
 		DELETE FROM [dbo],[Member]
 		WHERE id = #{param1}	
-	</delete>
-	
+	</delete>	
 	
 	<select id = "get" resultType="com.newlecture.webapp.entity.Member">
 		select*from Member where id = #{param1}
 	
-	</select>
-	
+	</select>	
 	
 	<select id="getList" resultType="com.newlecture.webapp.entity.Member">
 		select * from Member
@@ -38,6 +36,11 @@
 		order by regDate desc
 		offset #{(param3-1)*10} rows <!-- 1 -> 0, 2 -> 10, 3 -> 20 -->
 		fetch next 10 rows only
+	</select>
+	
+	<select id = "getByEmail" resultType="com.newlecture.webapp.entity.Member">
+		select*from Member where email = #{param1}
+	
 	</select>
 	
 </mapper>
