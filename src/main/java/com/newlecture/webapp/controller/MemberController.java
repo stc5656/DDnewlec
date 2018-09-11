@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.newlecture.webapp.dao.MemberDao;
 import com.newlecture.webapp.entity.Member;
@@ -62,28 +63,6 @@ public class MemberController {
 	 * @param email
 	 * @return
 	 */
-	
-	@GetMapping("email-duplicated-error")
-	@ResponseBody
-	public String emailDuplicatedError(HttpServletResponse response) {
-		// location.href='join-email' 이메일 요청하는거
-		// 한글 깨지는 현상 해결 방법 : HttpServletResponse response 써줘야 안깨짐
-		
-		return "<script>alert('이미 가입된 이메일 입니다.'); location.href='join-email';</script>";
-	}
-	
-	// 컨트롤러
-	@GetMapping("is-id-duplicated")
-	public String isIdDuplicated(String id) {	
-		
-		boolean duplicated = service.isIdDuplicated(id);
-		
-		if(duplicated)
-			return "true";
-		
-		return "false";		
-	}
-	
 	
 	@PostMapping("join-email")
 	public String joinEmail(String email, HttpServletResponse response) {
@@ -158,7 +137,29 @@ public class MemberController {
 
 		return "member.join-email-info";
 	}
-
+	
+	// 컨트롤러
+	@GetMapping("is-id-duplicated")
+	@ResponseBody
+	public String isIdDuplicated(String id) {	
+		
+		boolean duplicated = service.isIdDuplicated(id);
+		
+		if(duplicated)
+			return "true";
+		
+		return "false";		
+	}
+	
+	@GetMapping("email-duplicated-error")
+	@ResponseBody
+	public String emailDuplicatedError(HttpServletResponse response) {
+		// location.href='join-email' 이메일 요청하는거
+		// 한글 깨지는 현상 해결 방법 : HttpServletResponse response 써줘야 안깨짐
+		
+		return "<script>alert('이미 가입된 이메일 입니다.'); location.href='join-email';</script>";
+	}
+	
 	/*------------------------------------------*/
 
 	@GetMapping("join-reg")
@@ -168,8 +169,8 @@ public class MemberController {
 			, Model model) {		
 		
 		// 이메일 인증 과정 중 오류 발생
-		if(key.equals("") || joinId.equals("") || !key.equals(joinId))
-			return "member.join-error";
+		/*if(key.equals("") || joinId.equals("") || !key.equals(joinId))
+			return "member.join-error";*/
 		
 		/*String uid = email.substring(email.lastIndexOf("@")+1); */ // newlec@namoolab.com 에서 앞에 newlec만 발췌하는 코드
 		String uid = email.split("@")[0];
@@ -178,6 +179,13 @@ public class MemberController {
 		model.addAttribute("email", email);
 				
 		return "member.join-reg";		
+	}
+	
+	// 포스트한 데이터를 담아두는 
+	@PostMapping("join-reg")
+	public String joinReg(Member member, @RequestParam("photo.file") MultipartFile photo){
+		
+		return "redirect:";				
 	}
 	
 	@GetMapping("login")

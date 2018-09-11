@@ -16,9 +16,6 @@ window.addEventListener("load", function(event){
 
         // editor 가로 세로 크기가 입력창에 맞춰지게
 
-        webEditor.
-
-
     };
 
     
