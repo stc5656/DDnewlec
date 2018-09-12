@@ -51,35 +51,40 @@ public class SecurityContextConfig extends WebSecurityConfigurerAdapter {
 		*/
 		
 		http
-		.csrf().disable() //CSRF공격을 막아보자
-		.authorizeRequests() 
-			.antMatchers("/admin/**").hasRole("ADMIN")
-			.antMatchers("/academy/**").hasAnyRole("ADMIN, ACADEMY")
-			.antMatchers("/teacher/**").hasAnyRole("ADMIN, TEACHER")
-			.antMatchers("/student/**").hasAnyRole("ADMIN, STUDENT")
-			.antMatchers("/customer/question/**").authenticated()
-			.anyRequest().permitAll() //위에뺀 나머진 허용
-		.and()
-		.formLogin()
-			.defaultSuccessUrl("/index")
-			.loginPage("/member/login") //get
-			.loginProcessingUrl("/member/login") //post
- 			.successHandler(successHandler)
+			.headers()
+				.frameOptions()
+				.sameOrigin()
+				.and()
+			.csrf()
+				.disable() //CSRF공격을 막아보자
+			.authorizeRequests() 
+				.antMatchers("/admin/**").hasRole("ADMIN")
+				.antMatchers("/academy/**").hasAnyRole("ADMIN, ACADEMY")
+				.antMatchers("/teacher/**").hasAnyRole("ADMIN, TEACHER")
+				.antMatchers("/student/**").hasAnyRole("ADMIN, STUDENT")
+				.antMatchers("/customer/question/**").authenticated()
+				.anyRequest().permitAll() //위에뺀 나머진 허용
 			.and()
-		.logout()
-			.logoutUrl("/member/logout")
-			.logoutSuccessUrl("/index");
-		
-		/*
-		http
-			.authorizeRequests()
-			.antMatchers("/admin/**").hasRole("ADMIN")
-			.antMatchers("/academy/**").hasAnyRole("ADMIN, ACADEMY")
-			.antMatchers("/teacher/**").hasAnyRole("ADMIN, TEACHER")
-			.antMatchers("/student/**").hasAnyRole("ADMIN, STUDENT");
-		 */
-		 
-		 
+			.formLogin()
+				.defaultSuccessUrl("/index")
+				.loginPage("/member/login") //get
+				.loginProcessingUrl("/member/login") //post
+	 			.successHandler(successHandler)
+				.and()
+			.logout()
+				.logoutUrl("/member/logout")
+				.logoutSuccessUrl("/index");
+			
+			/*
+			http
+				.authorizeRequests()
+				.antMatchers("/admin/**").hasRole("ADMIN")
+				.antMatchers("/academy/**").hasAnyRole("ADMIN, ACADEMY")
+				.antMatchers("/teacher/**").hasAnyRole("ADMIN, TEACHER")
+				.antMatchers("/student/**").hasAnyRole("ADMIN, STUDENT");
+			 */
+			 
+			 
 	}
 
 	@Override

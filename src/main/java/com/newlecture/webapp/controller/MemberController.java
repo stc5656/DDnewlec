@@ -1,12 +1,20 @@
 package com.newlecture.webapp.controller;
 
+import java.io.File;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -24,10 +34,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.newlecture.webapp.dao.MemberDao;
+
 import com.newlecture.webapp.entity.Member;
 import com.newlecture.webapp.service.MybatisHomeService;
-import com.sun.org.apache.regexp.internal.recompile;
+
 
 @Controller
 @RequestMapping("/member/")
@@ -172,6 +182,7 @@ public class MemberController {
 		/*if(key.equals("") || joinId.equals("") || !key.equals(joinId))
 			return "member.join-error";*/
 		
+		// 문자열 자르기
 		/*String uid = email.substring(email.lastIndexOf("@")+1); */ // newlec@namoolab.com 에서 앞에 newlec만 발췌하는 코드
 		String uid = email.split("@")[0];
 		
@@ -183,9 +194,60 @@ public class MemberController {
 	
 	// 포스트한 데이터를 담아두는 
 	@PostMapping("join-reg")
-	public String joinReg(Member member, @RequestParam("photo.file") MultipartFile photo){
+	public String joinReg(
+			Member member, 
+			@RequestParam("photo-file") MultipartFile photoFile,
+			HttpServletRequest request) throws IOException{
+				
+		String resLocation = "/resources/users/newlec/";
 		
-		return "redirect:";				
+		/*// 사용자가 많을 경우 이렇게.. 계정명 넣어서.. 다른 사람이 저장하게 되면 이런 형식으로 저장됨
+		// "/resources/users/newlec/photo1.jpg" 
+		// windows -> "d:\home\www\ROOT\resource\\user\newlec"
+		// unix -> "/var/local/web/resource/user/newlec"		 	*/
+		
+		// 사진 파일 저장할때
+		ServletContext context = request.getServletContext();
+		String homeDir = context.getRealPath(resLocation);
+		String uploadedFileName = photoFile.getOriginalFilename();
+		String filePath = homeDir /*+ File.separator */+ uploadedFileName;
+		
+		System.out.println(filePath);		
+		
+		File dir = new File(homeDir);
+		if(!dir.exists())
+			dir.mkdir();
+		
+		InputStream fis = photoFile.getInputStream();
+		FileOutputStream fos = new FileOutputStream(filePath);
+		
+		// fis에서 읽어서 fos 으로 복사하기
+				
+		 /*int data = 0;
+		 while((data=fis.read())!=-1) {
+		    fos.write(data);
+		  }*/
+		
+		byte[] buf = new byte[1024];
+		int size = 0;
+		
+		while((size = fis.read(buf, 0, buf.length)) != -1);
+			fos.write(buf, 0, size);
+		   
+		 fis.close();
+		 fos.close();		
+		 
+		 
+		 // 저장하거는
+		 PasswordEncoder encoder = new BCryptPasswordEncoder();
+		 String encodedPwd = encoder.encode(member.getPwd());
+		 
+		 member.setPhoto(uploadedFileName);
+		 member.setPwd(encodedPwd);
+		 
+		 service.insertMember(member);	 		
+				 
+		return "redirect:../index";				
 	}
 	
 	@GetMapping("login")

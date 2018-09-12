@@ -5,8 +5,7 @@ import java.util.List;
 import com.newlecture.webapp.entity.Member;
 
 public interface MemberDao {
-	
-	int insert(Member member);
+		
 	int update(Member member);
 	int delete(String id);
 	
@@ -16,6 +15,7 @@ public interface MemberDao {
 	List<Member> getList(String field, String query);
 	List<Member> getList(String field, String query, int page);
 	Member getByEmail(String email);
+	int insert(Member member);
 	
 	
 }

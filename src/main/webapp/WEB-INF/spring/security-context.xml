@@ -11,10 +11,20 @@
 
 	<!-- 로그인 페이지로 간다. -->
 	<!-- 라이브러리 불러오는거 -->
-	<http auto-config="true">
-		<intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>	
-	</http>	
 	
+	<http auto-config="true">
+		<headers>
+			<frame-options policy="SAMEORIGIN"/>		
+		</headers>	
+		<intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>
+		<intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>
+		<intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>
+		<intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>
+		<intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>
+		
+		<form-login login-page="" login-processing-url=""/>
+		<logout logout-success-url=""/>
+	</http>	
 	
 	<authentication-manager>
 		<authentication-provider>

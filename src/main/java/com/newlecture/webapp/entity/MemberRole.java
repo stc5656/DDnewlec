@@ -6,7 +6,7 @@ public class MemberRole {
 	private String roleName;
 	private boolean defaultRole;
 	
-	public MemberRole(String memberId, String roleName) {
+	public MemberRole(String memberId, String roleName, boolean b) {
 		this.memberId = memberId;
 		this.roleName = roleName;
 		

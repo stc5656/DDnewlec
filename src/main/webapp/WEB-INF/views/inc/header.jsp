@@ -191,7 +191,7 @@ h1 {
 								property="name" /> 님 로그아웃
 						</a>
 						</security:authorize>
-						<a href="/member/join">회원가입</a>						
+						<a href="/member/join-reg">회원가입</a>						
 				</div>			
 
 			

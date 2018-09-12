@@ -9,6 +9,7 @@ public class Member {
 	private String email;
 	private String pwd;
 	private Date regDate;
+	private String photo;
 	
 	public String getId() {
 		return id;
@@ -39,6 +40,12 @@ public class Member {
 	}
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public String setPhoto(String photo) {
+		return this.photo = photo;
 	}
 	
 	

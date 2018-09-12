@@ -80,23 +80,26 @@ public class ServletContextConfig implements WebMvcConfigurer {
 		
 		// 내가 원하는 형식으로 문자 보여주게 하는거..
 		StringHttpMessageConverter converter = new StringHttpMessageConverter(Charset.forName("UTF-8"));
-		converter.setWriteAcceptCharset(false);
-		
+		converter.setWriteAcceptCharset(false);		
 		converters.add(converter);
 		
 		WebMvcConfigurer.super.configureMessageConverters(converters);
 	
 	}
 	
-	/*@Bean
+	
+	// db 저장하는거..
+	@Bean
 	public CommonsMultipartResolver multipartresolver() {
 	
 	CommonsMultipartResolver resolver = new CommonsMultipartResolver();
 	resolver.setMaxUploadSize(1024*1024*100);
 	resolver.setMaxUploadSizePerFile(1024*1024*10);
+	// 한글 깨지는거 해결
+	resolver.setDefaultEncoding("UTF-8");
 	
 		return resolver;
-	}*/
+	}
 	
 	}
 

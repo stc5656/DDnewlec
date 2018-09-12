@@ -59,7 +59,19 @@
 
 			var idOk = false;
 
-			idCheckButton.onclick = function(e){
+			
+			// 중복확인 안하고 넘어가려고 할때
+		joinButton.onclick = function(e){
+							
+				if(!idOk){
+					alert("아이디 중복 검사를 하지 않았거나 유효하지 않은 아이디입니다.");
+					e.preventDefault();
+					}
+			};					
+			
+
+
+		idCheckButton.onclick = function(e){
 				
 				// alert("hello");
 				// ajax -> 협력자 백엔드에게 연락해서 알아봐야함.
@@ -68,9 +80,9 @@
 				
 			var id = idInput.value;	
 				
-			var request = new XmlHttpRequest();
-			request.onload = function(e){
-				
+			var request = new XMLHttpRequest();		
+			request.onload = function(){
+			
 			var duplicated = JSON.parse(request.responseText);
 				
 				if(duplicated){
@@ -78,25 +90,20 @@
 					return;
 			
 				}
-			};
-			
-			// 중복확인 안하고 넘어가려고 할때
-			joinButton.onclick = function(e){
-							
-				if(!idOk){
-					alert("아이디 중복 검사를 하지 않았거나 유효하지 않은 아이디입니다.");
-					e.preventDefault();
-				}
-			}
-					
+				alert("사용 가능합니다.");
+				idOk = true;
+			};		
 				
 			request.open("GET", "is-id-duplicated?id="+id, true);
 			request.send();
 			};	
+
+
+
 					
-				// 트리거 사용법
-				photoButton.onclick=function(){
-				var photoEvent = new MouseEvent("click", {
+		// 트리거 사용법
+		photoButton.onclick=function(){
+			var photoEvent = new MouseEvent("click", {
 					'view' : window,
 					'bubble' : true,
 					'cancelable' : true
@@ -104,10 +111,11 @@
 				
 				fileButton.dispatchEvent(photoEvent);
 			};	
+			
 
-				fileButton.onchange = function(e){
+		fileButton.onchange = function(e){
 
-					var file = fileBUtton.files[0];
+					var file = fileButton.files[0];
 
 					// 파일 용량, 파일 확장자 제한해야돼
 									
@@ -137,14 +145,8 @@
 
 					reader.readAsDataURL(file);
 					
-					
-
-
-
 				}
-
-
-			
+				
 		});		
 
 	</script>

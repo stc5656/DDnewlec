@@ -53,5 +53,13 @@ public class MybatisHomeService {
 			return true;
 		
 		return false;
+	}
+
+	public int insertMember(Member member) {
+
+		int result = memberDao.insert(member);
+		memberRoleDao.insert(new MemberRole(member.getId(),"ROLE_STUDENT", true));
+		
+		return result;
 	}	
 }
