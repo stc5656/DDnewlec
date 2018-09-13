@@ -29,6 +29,9 @@ public class QuestionController{
 	 4. model�� ����ϴ� ����� �����ϱ� 
 	 
 	*/
+	
+		
+	
 	@RequestMapping("type")
 	public String type(Model model, Principal principal) {
 		
@@ -63,6 +66,12 @@ public class QuestionController{
 	public String admin() {
 						
 		return "teacher.question.admin"; /*���������� ���ش�*/
+	}
+	
+	@RequestMapping("question-list")
+	public String questionList() {
+	
+		return "teacher.question.QuestionList";
 	}
 	
 	

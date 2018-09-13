@@ -12,6 +12,8 @@
 						<input type="file" hidden="true" name="photo-file" value="사진선택" /> 
 						<span class="photo-button">사진선택</span>
 					</td>
+				</tr>
+				<tr>
 					<td>
 						<label>아이디 : </label> 
 						<input name="id" /> 
@@ -19,24 +21,49 @@
 						// 중복확인하는 방법
 					
 					</td>
+				</tr>
+				<tr>
 					<td>
 						<label>비밀번호 : </label> 
 						<input name="pwd" required="required" />
 					</td>
+				</tr>
+				<tr>	
 					<td>
 						<label>이름 : </label> 
 						<input name="name" required="required" />
 					</td>
+				</tr>
+				<tr>	
 					<td>
 						<label>이메일 : </label> 
 						<input name="email"	readonly="readonly" />
 					</td>
-				</tr>
+				</tr>				
+				<tr>
+					<td>
+						<label>다음 계산 결과는? : <img src="moonjae.png"/></label> 
+						<input name="calc" />
+					</td>
+				
+				</tr>			
+							
 				<tr>
 					<td>
 						<input type="submit" value="회원가입"/>
 					</td>
 				</tr>
+				<tr>	
+					<td>
+						<a href="find-id">아이디 찾기</a>
+						<a href="reset-pwd">비밀번호 재설정</a>
+						
+						
+						
+					</td>
+				</tr>
+							
+				
 			</table>
 		</form>
 	
